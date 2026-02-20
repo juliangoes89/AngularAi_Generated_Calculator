@@ -49,6 +49,10 @@ echo [INFO] Starting CI/CD pipeline for Angular Calculator App
 echo [INFO] Environment: %ENVIRONMENT%
 echo [INFO] Tag: %TAG%
 
+REM Check Node.js version
+for /f "tokens=*" %%i in ('node --version') do set NODE_VERSION=%%i
+echo [INFO] Node.js version: %NODE_VERSION%
+
 REM Step 1: Install dependencies (if not exist)
 if not exist "node_modules" (
     echo [INFO] Installing dependencies...

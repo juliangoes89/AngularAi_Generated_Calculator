@@ -15,7 +15,7 @@ A beautiful, responsive calculator built with Angular 18+ and TypeScript.
 
 ### Prerequisites
 
-- Node.js (version 18 or higher)
+- Node.js (version 20.19 or higher)
 - npm (comes with Node.js)
 - Angular CLI (optional, but recommended)
 

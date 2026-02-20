@@ -1,5 +1,10 @@
 # Docker Commands for Angular Calculator App
 
+## Requirements
+- **Node.js**: >=20.19.0 (for Angular 18+ and ESLint 9+)
+- **npm**: >=8.0.0
+- **Docker**: Latest version
+
 ## Quick Start Commands
 
 ### Production Build & Run

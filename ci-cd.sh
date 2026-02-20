@@ -68,6 +68,10 @@ main() {
     log_info "Environment: $ENVIRONMENT"
     log_info "Tag: $TAG"
     
+    # Check Node.js version
+    NODE_VERSION=$(node --version)
+    log_info "Node.js version: $NODE_VERSION"
+    
     # Step 1: Install dependencies (if not in container)
     if [ ! -d "node_modules" ]; then
         log_info "Installing dependencies..."
