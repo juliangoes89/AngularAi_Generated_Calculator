@@ -1,3 +1,41 @@
+# ## Setting Up GitHub Secrets for this Workflow
+#
+# This workflow requires the following secrets to be configured in your GitHub repository:
+#
+# ### Required Secrets:
+# - `DOCKERHUB_USERNAME`: Your Docker Hub username
+# - `DOCKERHUB_TOKEN`:    Your Docker Hub access token (recommended over password)
+#
+# ### Step-by-step Guide:
+#
+# 1. **Generate a Docker Hub Access Token:**
+#    - Log in to https://hub.docker.com
+#    - Go to Account Settings > Security > New Access Token
+#    - Give it a descriptive name (e.g., "github-actions")
+#    - Select permissions: "Read, Write, Delete"
+#    - Copy the generated token (it won't be shown again)
+#
+# 2. **Add Secrets to your GitHub Repository:**
+#    - Navigate to your repository on https://github.com
+#    - Go to Settings > Secrets and variables > Actions
+#    - Click "New repository secret"
+#    - Add the following secrets one by one:
+#
+#      | Secret Name         | Value                          |
+#      |---------------------|--------------------------------|
+#      | DOCKERHUB_USERNAME  | your-dockerhub-username        |
+#      | DOCKERHUB_TOKEN     | your-dockerhub-access-token    |
+#
+# 3. **Verify Secret Configuration:**
+#    - Secrets should appear listed (values are hidden) under
+#      Settings > Secrets and variables > Actions > Repository secrets
+#
+# ### Security Notes:
+# - Never hardcode credentials directly in the workflow file
+# - Use access tokens instead of passwords for better security
+# - Restrict token permissions to only what is needed
+# - Rotate tokens periodically for better security hygiene
+# - Secrets are not passed to workflows triggered by forks
 name: CI/CD Pipeline
 
 on:
@@ -7,8 +45,8 @@ on:
     branches: [ main ]
 
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  REGISTRY: docker.io
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/angular-calculator
 
 jobs:
   test:
@@ -45,7 +83,6 @@ jobs:
     
     permissions:
       contents: read
-      packages: write
 
     steps:
     - name: Checkout code
@@ -54,18 +91,18 @@ jobs:
     - name: Setup Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Log in to Container Registry
+    - name: Log in to Docker Hub
       uses: docker/login-action@v3
       with:
         registry: ${{ env.REGISTRY }}
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Extract metadata
       id: meta
       uses: docker/metadata-action@v5
       with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        images: ${{ env.IMAGE_NAME }}
         tags: |
           type=ref,event=branch
           type=ref,event=pr
