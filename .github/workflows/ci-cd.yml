@@ -73,9 +73,6 @@ jobs:
       env:
         CI: true
 
-    - name: List coverage files (debug)
-      run: find ./coverage -type f | sort
-
     - name: Upload coverage reports
       uses: codecov/codecov-action@v3
       with:

@@ -2,6 +2,20 @@
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
 module.exports = function (config) {
+  // Override config.set to inject lcov reporter AFTER Angular's builder sets its config
+  // Angular's builder hardcodes reporters: [html, text-summary] and overwrites our settings
+  const originalSet = config.set.bind(config);
+  config.set = function(newConfig) {
+    originalSet(newConfig);
+    // After any set() call, ensure lcov reporter is present
+    if (config.coverageReporter && config.coverageReporter.reporters) {
+      const hasLcov = config.coverageReporter.reporters.some(r => r.type === 'lcov');
+      if (!hasLcov) {
+        config.coverageReporter.reporters.push({ type: 'lcov', subdir: '.', file: 'lcov.info' });
+      }
+    }
+  };
+
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
@@ -30,7 +44,7 @@ module.exports = function (config) {
       reporters: [
         { type: 'html' },
         { type: 'text-summary' },
-        { type: 'lcovonly' }
+        { type: 'lcov', subdir: '.', file: 'lcov.info' }
       ],
       check: {
         global: {
