@@ -69,12 +69,17 @@ jobs:
       run: npm run lint
 
     - name: Run unit tests
-      run: npm run test:unit
+      run: npm run test:unit -- --no-watch --code-coverage --browsers=ChromeHeadlessCI
 
     - name: Upload coverage reports
       uses: codecov/codecov-action@v3
       with:
-        directory: ./coverage/
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage/angular-calculator/lcov.info
+        flags: unittests
+        name: angular-calculator-coverage
+        fail_ci_if_error: false
+        verbose: true
 
   build-and-push:
     needs: test
