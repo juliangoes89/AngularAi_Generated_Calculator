@@ -173,10 +173,10 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class AppComponent {
-  currentOperand: string = '0';
-  previousOperand: string = '';
+  currentOperand = '0';
+  previousOperand = '';
   operation: string | null = null;
-  waitingForOperand: boolean = false;
+  waitingForOperand = false;
 
   clear(): void {
     this.currentOperand = '0';
