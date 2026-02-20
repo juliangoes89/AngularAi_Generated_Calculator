@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
