@@ -69,7 +69,9 @@ jobs:
       run: npm run lint
 
     - name: Run unit tests
-      run: npm run test:unit -- --no-watch --code-coverage --browsers=ChromeHeadlessCI
+      run: npm run test:unit -- --no-watch --code-coverage
+      env:
+        CI: true
 
     - name: Upload coverage reports
       uses: codecov/codecov-action@v3
