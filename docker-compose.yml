@@ -1,0 +1,59 @@
+services:
+  # Production build service
+  angular-calculator-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: angular-calculator-production
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    networks:
+      - calculator-network
+
+  # Development service with live reload
+  angular-calculator-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      target: development
+    container_name: angular-calculator-development
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm start -- --host 0.0.0.0 --poll=2000
+    restart: unless-stopped
+    networks:
+      - calculator-network
+    profiles:
+      - dev
+
+  # Test runner service
+  angular-calculator-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      target: development
+    container_name: angular-calculator-test
+    volumes:
+      - ./src:/app/src
+      - ./features:/app/features
+      - ./coverage:/app/coverage
+      - /app/node_modules
+    environment:
+      - NODE_ENV=test
+    command: npm run test:unit
+    networks:
+      - calculator-network
+    profiles:
+      - test
+
+networks:
+  calculator-network:
+    driver: bridge

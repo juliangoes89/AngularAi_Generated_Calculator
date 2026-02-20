@@ -11,7 +11,14 @@
     "test:cucumber:direct": "npx cucumber-js --config cucumber.config.js",
     "test:unit": "ng test --watch=false --browsers=ChromeHeadless",
     "test:all": "npm run test:unit && echo \"Now start Angular server with 'npm start' and run 'npm run test:cucumber:direct'\"",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "docker:build": "docker-compose build angular-calculator-prod",
+    "docker:run": "docker-compose up angular-calculator-prod",
+    "docker:run:detached": "docker-compose up -d angular-calculator-prod",
+    "docker:dev": "docker-compose --profile dev up angular-calculator-dev",
+    "docker:test": "docker-compose --profile test run --rm angular-calculator-test",
+    "docker:stop": "docker-compose down",
+    "docker:clean": "docker-compose down -v --remove-orphans"
   },
   "private": true,
   "dependencies": {
