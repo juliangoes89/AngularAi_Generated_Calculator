@@ -22,6 +22,9 @@
     "docker:stop": "docker-compose down",
     "docker:clean": "docker-compose down -v --remove-orphans"
   },
+  "overrides": {
+    "chokidar":"$chokidar"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.0.0",
@@ -45,6 +48,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.11.0",
     "angular-eslint": "21.0.1",
+    "chokidar": "^5.0.0",
     "eslint": "^9.39.1",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
