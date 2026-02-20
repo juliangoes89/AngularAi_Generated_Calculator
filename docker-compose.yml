@@ -1,16 +1,28 @@
 services:
-  # Production build service
+  # Production service using pre-built image from Docker Hub
   angular-calculator-prod:
+    image: ${DOCKERHUB_USERNAME}/angular-calculator:latest
+    container_name: angular-calculator
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    networks:
+      - calculator-network
+
+  # Local build service (for development/testing purposes)
+  angular-calculator-build:
     build:
       context: .
       dockerfile: Dockerfile
       target: production
-    container_name: angular-calculator-production
+    container_name: angular-calculator-local
     ports:
       - "8080:80"
     restart: unless-stopped
     networks:
       - calculator-network
+    profiles:
+      - local
 
   # Development service with live reload
   angular-calculator-dev:

@@ -126,13 +126,29 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     
     steps:
-    - name: Deploy to staging
-      run: |
-        echo "Deploying to staging environment..."
-        # Add your deployment commands here
-        # For example, update Kubernetes deployment or trigger deployment webhook
-    
-    - name: Run smoke tests
-      run: |
-        echo "Running smoke tests..."
-        # Add smoke test commands here
+    - name: Deploy to Hostinger VPS
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        script: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/angular-calculator:latest
+          docker stop angular-calculator || true
+          docker rm angular-calculator || true
+          docker run -d \
+            --name angular-calculator \
+            --restart unless-stopped \
+            -p 80:80 \
+            ${{ secrets.DOCKERHUB_USERNAME }}/angular-calculator:latest
+          echo "Deployment completed successfully!"
+
+    - name: Verify deployment
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        script: |
+          docker ps | grep angular-calculator
+          echo "Container is running!"
