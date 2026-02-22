@@ -208,17 +208,29 @@ export class AppComponent {
   }
 
   chooseOperation(nextOperation: string): void {
-    if (this.previousOperand === '') {
-      this.previousOperand = this.currentOperand;
-    } else if (!this.waitingForOperand) {
+    if (this.previousOperand !== '' && !this.waitingForOperand) {
       this.compute();
     }
 
+    this.previousOperand = this.currentOperand;
     this.operation = nextOperation;
     this.waitingForOperand = true;
   }
 
   compute(): void {
+    // No operation pending (e.g. repeated "=" press) — nothing to do
+    if (this.operation === null) {
+      return;
+    }
+
+    // "=" pressed without a second operand — show the first operand unchanged
+    if (this.waitingForOperand) {
+      this.currentOperand = this.previousOperand;
+      this.previousOperand = '';
+      this.operation = null;
+      return;
+    }
+
     let result: number;
     const prev = parseFloat(this.previousOperand);
     const current = parseFloat(this.currentOperand);

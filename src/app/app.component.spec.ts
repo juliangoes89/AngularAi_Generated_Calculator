@@ -221,7 +221,7 @@ describe('AppComponent', () => {
     it('should perform addition correctly', () => {
       component.currentOperand = '10';
       component.chooseOperation('+');
-      component.currentOperand = '5';
+      component.appendNumber('5');
       
       component.compute();
       
@@ -233,7 +233,7 @@ describe('AppComponent', () => {
     it('should perform subtraction correctly', () => {
       component.currentOperand = '10';
       component.chooseOperation('-');
-      component.currentOperand = '3';
+      component.appendNumber('3');
       
       component.compute();
       
@@ -243,7 +243,7 @@ describe('AppComponent', () => {
     it('should perform multiplication correctly', () => {
       component.currentOperand = '6';
       component.chooseOperation('*');
-      component.currentOperand = '7';
+      component.appendNumber('7');
       
       component.compute();
       
@@ -253,7 +253,7 @@ describe('AppComponent', () => {
     it('should perform division correctly', () => {
       component.currentOperand = '20';
       component.chooseOperation('/');
-      component.currentOperand = '4';
+      component.appendNumber('4');
       
       component.compute();
       
@@ -263,6 +263,7 @@ describe('AppComponent', () => {
     it('should handle decimal calculations correctly', () => {
       component.currentOperand = '1.5';
       component.chooseOperation('+');
+      component.waitingForOperand = false;
       component.currentOperand = '2.7';
       
       component.compute();
@@ -273,6 +274,7 @@ describe('AppComponent', () => {
     it('should handle floating point precision', () => {
       component.currentOperand = '0.1';
       component.chooseOperation('+');
+      component.waitingForOperand = false;
       component.currentOperand = '0.2';
       
       component.compute();
@@ -285,7 +287,7 @@ describe('AppComponent', () => {
     it('should handle division by zero', () => {
       component.currentOperand = '10';
       component.chooseOperation('/');
-      component.currentOperand = '0';
+      component.appendNumber('0');
       
       component.compute();
       
@@ -428,7 +430,7 @@ describe('AppComponent', () => {
     it('should handle consecutive equals operations', () => {
       component.currentOperand = '10';
       component.chooseOperation('+');
-      component.currentOperand = '5';
+      component.appendNumber('5');
       component.compute();
       
       expect(component.currentOperand).toBe('15');
@@ -442,7 +444,7 @@ describe('AppComponent', () => {
       // Cause an error
       component.currentOperand = '10';
       component.chooseOperation('/');
-      component.currentOperand = '0';
+      component.appendNumber('0');
       component.compute();
       
       expect(component.currentOperand).toBe('Error');
