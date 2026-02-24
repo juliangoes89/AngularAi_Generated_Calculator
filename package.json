@@ -47,7 +47,7 @@
     "@cucumber/pretty-formatter": "^1.0.0",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.11.0",
-    "angular-eslint": "21.0.1",
+    "angular-eslint": "21.2.0",
     "chokidar": "^5.0.0",
     "eslint": "^9.39.1",
     "jasmine-core": "~5.13.0",
