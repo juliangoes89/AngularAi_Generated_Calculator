@@ -226,7 +226,7 @@ jobs:
     
     steps:
     - name: Deploy to Hostinger VPS
-      uses: appleboy/ssh-action@v1.0.0
+      uses: appleboy/ssh-action@v1.2.5
       with:
         host: ${{ secrets.VPS_HOST }}
         username: ${{ secrets.VPS_USER }}
@@ -242,7 +242,7 @@ jobs:
           echo "Deployment completed successfully!"
 
     - name: Verify deployment
-      uses: appleboy/ssh-action@v1.0.0
+      uses: appleboy/ssh-action@v1.2.5
       with:
         host: ${{ secrets.VPS_HOST }}
         username: ${{ secrets.VPS_USER }}
