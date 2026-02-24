@@ -66,7 +66,7 @@ jobs:
         cache: 'npm'
 
     - name: Install dependencies
-      run: npm ci
+      run: npm run ci
 
     - name: Run linter
       run: npm run lint
@@ -116,7 +116,7 @@ jobs:
         cache: 'npm'
 
     - name: Install dependencies
-      run: npm ci
+      run: npm run ci
 
     - name: Install Puppeteer browser
       run: npx puppeteer browsers install chrome
@@ -165,7 +165,7 @@ jobs:
         cache: 'npm'
 
     - name: Install dependencies
-      run: npm ci
+      run: npm run ci
 
     - name: Build project
       run: npm run build -- --configuration production

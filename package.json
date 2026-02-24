@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "ci": "node -e \"require('fs').rmSync('node_modules', {recursive:true, force:true})\" && npm install --legacy-peer-deps --no-save",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
