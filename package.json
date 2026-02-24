@@ -4,7 +4,6 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "ci": "node -e \"require('fs').rmSync('node_modules', {recursive:true, force:true})\" && npm install --legacy-peer-deps --no-save",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -38,7 +37,7 @@
     "@angular/router": "^18.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.16.1"
+    "zone.js": "~0.14.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.0.0",
@@ -48,18 +47,18 @@
     "@cucumber/pretty-formatter": "^1.0.0",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.11.0",
-    "angular-eslint": "21.2.0",
+    "angular-eslint": "21.0.1",
     "chokidar": "^5.0.0",
     "eslint": "^9.39.1",
-    "jasmine-core": "~5.13.0",
+    "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.2.0",
-    "puppeteer": "^24.37.5",
-    "typescript": "~5.9.3",
-    "typescript-eslint": "8.56.1"
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "puppeteer": "^24.37.3",
+    "typescript": "~5.4.0",
+    "typescript-eslint": "8.46.4"
   },
   "engines": {
     "node": ">=20.19.0",
