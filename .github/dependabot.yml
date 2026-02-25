@@ -1,28 +1,21 @@
 version: 2
 updates:
-  # npm dependencies
+  # npm dependencies - vulnerability alerts only, no update PRs
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "monthly"
-    open-pull-requests-limit: 3
+    open-pull-requests-limit: 0
     labels:
       - "dependencies"
       - "manual-review-required"
-    ignore:
-      # Only allow patch updates; minor and major require manual intervention
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
 
-  # GitHub Actions dependencies
+  # GitHub Actions dependencies - vulnerability alerts only, no update PRs
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 0
     labels:
       - "dependencies"
       - "manual-review-required"
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
