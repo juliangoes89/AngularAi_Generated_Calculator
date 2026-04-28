@@ -20,7 +20,9 @@
     "docker:dev": "docker-compose --profile dev up angular-calculator-dev",
     "docker:test": "docker-compose --profile test run --rm angular-calculator-test",
     "docker:stop": "docker-compose down",
-    "docker:clean": "docker-compose down -v --remove-orphans"
+    "docker:stop:dev": "docker-compose --profile dev down",
+    "docker:clean": "docker-compose down -v --remove-orphans",
+    "docker:clean:dev": "docker-compose --profile dev down -v --remove-orphans"
   },
   "overrides": {
     "chokidar":"$chokidar"
