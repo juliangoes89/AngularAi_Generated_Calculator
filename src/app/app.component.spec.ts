@@ -268,7 +268,7 @@ describe('AppComponent', () => {
       
       component.compute();
       
-      expect(parseFloat(component.currentOperand)).toBeCloseTo(4.2, 5);
+      expect(Number.parseFloat(component.currentOperand)).toBeCloseTo(4.2, 5);
     });
 
     it('should handle floating point precision', () => {
@@ -279,7 +279,7 @@ describe('AppComponent', () => {
       
       component.compute();
       
-      expect(parseFloat(component.currentOperand)).toBeCloseTo(0.3, 8);
+      expect(Number.parseFloat(component.currentOperand)).toBeCloseTo(0.3, 8);
     });
   });
 

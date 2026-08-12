@@ -1,40 +1,25 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CalculatorDisplayComponent } from './calculator-display/calculator-display.component';
+import { CalculatorButtonsComponent } from './calculator-buttons/calculator-buttons.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CalculatorDisplayComponent, CalculatorButtonsComponent],
   template: `
     <div class="calculator">
-      <div class="display">
-        <div class="previous-operand">{{ previousOperand }}</div>
-        <div class="current-operand">{{ currentOperand }}</div>
-      </div>
-      <div class="buttons">
-        <button class="btn btn-clear span-two" (click)="clear()">AC</button>
-        <button class="btn btn-delete" (click)="delete()">DEL</button>
-        <button class="btn btn-operator" (click)="chooseOperation('/')">÷</button>
-        
-        <button class="btn btn-number" (click)="appendNumber('1')">1</button>
-        <button class="btn btn-number" (click)="appendNumber('2')">2</button>
-        <button class="btn btn-number" (click)="appendNumber('3')">3</button>
-        <button class="btn btn-operator" (click)="chooseOperation('*')">×</button>
-        
-        <button class="btn btn-number" (click)="appendNumber('4')">4</button>
-        <button class="btn btn-number" (click)="appendNumber('5')">5</button>
-        <button class="btn btn-number" (click)="appendNumber('6')">6</button>
-        <button class="btn btn-operator" (click)="chooseOperation('+')">+</button>
-        
-        <button class="btn btn-number" (click)="appendNumber('7')">7</button>
-        <button class="btn btn-number" (click)="appendNumber('8')">8</button>
-        <button class="btn btn-number" (click)="appendNumber('9')">9</button>
-        <button class="btn btn-operator" (click)="chooseOperation('-')">-</button>
-        
-        <button class="btn btn-number" (click)="appendNumber('.')">.</button>
-        <button class="btn btn-number" (click)="appendNumber('0')">0</button>
-        <button class="btn btn-equals span-two" (click)="compute()">=</button>
-      </div>
+      <app-calculator-display
+        [currentOperand]="currentOperand"
+        [previousOperand]="previousOperand">
+      </app-calculator-display>
+      <app-calculator-buttons
+        (number)="appendNumber($event)"
+        (operation)="chooseOperation($event)"
+        (clear)="clear()"
+        (delete)="delete()"
+        (equals)="compute()">
+      </app-calculator-buttons>
     </div>
   `,
   styles: [`
@@ -49,125 +34,10 @@ import { CommonModule } from '@angular/common';
       width: 100%;
     }
 
-    .display {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      min-height: 100px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: flex-end;
-      text-align: right;
-      word-wrap: break-word;
-      word-break: break-all;
-    }
-
-    .previous-operand {
-      color: rgba(255, 255, 255, 0.75);
-      font-size: 1.2rem;
-      margin-bottom: 5px;
-    }
-
-    .current-operand {
-      color: white;
-      font-size: 2rem;
-      font-weight: bold;
-    }
-
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-    }
-
-    .btn {
-      padding: 20px;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: bold;
-      outline: none;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .btn:active {
-      transform: translateY(0);
-    }
-
-    .btn-number {
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-    }
-
-    .btn-number:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    .btn-operator {
-      background: rgba(255, 159, 67, 0.8);
-      color: white;
-    }
-
-    .btn-operator:hover {
-      background: rgba(255, 159, 67, 1);
-    }
-
-    .btn-clear {
-      background: rgba(231, 76, 60, 0.8);
-      color: white;
-    }
-
-    .btn-clear:hover {
-      background: rgba(231, 76, 60, 1);
-    }
-
-    .btn-delete {
-      background: rgba(155, 89, 182, 0.8);
-      color: white;
-    }
-
-    .btn-delete:hover {
-      background: rgba(155, 89, 182, 1);
-    }
-
-    .btn-equals {
-      background: rgba(46, 204, 113, 0.8);
-      color: white;
-    }
-
-    .btn-equals:hover {
-      background: rgba(46, 204, 113, 1);
-    }
-
-    .span-two {
-      grid-column: span 2;
-    }
-
     @media (max-width: 480px) {
       .calculator {
         padding: 20px;
         margin: 10px;
-      }
-      
-      .btn {
-        padding: 15px;
-        font-size: 1rem;
-      }
-      
-      .current-operand {
-        font-size: 1.5rem;
-      }
-      
-      .previous-operand {
-        font-size: 1rem;
       }
     }
   `]
